@@ -18,5 +18,27 @@ def create():
     User.guardar(request.form)
     return redirect('/')
 
+@app.route('/delete/<int:id>')
+def delete(id):
+    data = {
+        "id": id
+    }
+    User.borrar(data)
+    return redirect('/')
+
+@app.route('/edit/<int:id>')
+def edit(id):
+    data = {
+        "id": id
+    }
+    user = User.mostrar(data)
+    return render_template('edit.html', user=user)
+
+@app.route('/update', methods=['POST'])
+def update():
+    User.actualizar(request.form)
+    return redirect('/')
+
+
 if __name__=="__main__":
     app.run(debug=True)
